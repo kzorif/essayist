@@ -1,8 +1,26 @@
 import type { NextConfig } from "next";
+import nextMDX from "@next/mdx";
+
+const withMDX = nextMDX({
+	extension: /\.(md|mdx)$/,
+});
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
+	pageExtensions: ["ts", "tsx", "mdx", "md"],
+	reactCompiler: true,
+
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "images.unsplash.com",
+				port: "",
+				pathname: "/**",
+			},
+		],
+	},
 };
 
-export default nextConfig;
+module.exports = nextConfig;
+
+export default withMDX(nextConfig);

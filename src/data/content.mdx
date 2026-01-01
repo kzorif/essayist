@@ -1,0 +1,70 @@
+When building large-scale applications, keeping the UI responsive is paramount.
+React does a heavy lifting job with its Virtual DOM, but understanding
+<Tooltip
+  term="Reconciliation"
+  definition="The process through which React updates the DOM by comparing trees."
+>
+reconciliation
+</Tooltip>
+is crucial for preventing wasted render cycles.
+
+---
+
+## The Diffing Algorithm
+
+React implements a heuristic O(n) algorithm based on two assumptions:
+two elements of different types will produce different trees, and the developer
+can hint at which child elements may be stable across different renders with a
+`key` prop.
+
+<Quote>
+Premature optimization is the root of all evil, but wasted renders in a list of
+10,000 items is a user experience nightmare.
+</Quote>
+
+---
+
+## Implementing useMemo
+
+Let’s look at a practical example where heavy computation blocks the main thread.
+We can wrap the calculation in a `useMemo` hook to cache the result.
+
+<CodeBlock
+  code={`import React, { useMemo } from "react";
+
+const HeavyComponent = ({ data, filter }) => {
+  const processedData = useMemo(() => {
+    return data
+      .filter(item => item.value > filter)
+      .map(item => item.x * 2);
+  }, [data, filter]);
+
+  return (
+    <div>
+      {processedData.map(val => (
+        <span key={val}>{val}</span>
+      ))}
+    </div>
+  );
+};`}
+  logic={[
+    {
+      title: "Input",
+      description: "The component receives data and filter props."
+    },
+    {
+      title: "Check",
+      description: "React compares inputs to previous render."
+    },
+    {
+      title: "Result",
+      description: "Cached value returned or recalculated."
+    }
+  ]}
+/>
+
+<KeyTakeaway>
+Optimization isn't about making everything fast; it's about avoiding unnecessary
+work. By understanding React's internals, you write code that naturally performs
+better.
+</KeyTakeaway>
