@@ -1,11 +1,11 @@
-When building large-scale applications, keeping the UI responsive is paramount.
-React does a heavy lifting job with its Virtual DOM, but understanding
+<span className="text-7xl font-serif font-normal text-[#D2603C] float-left mr-4 mt-[-6px]">W</span>hen building large-scale applications, keeping the UI responsive is paramount.
+React does a heavy lifting job with its Virtual DOM, but understanding{" "}
 <Tooltip
   term="Reconciliation"
   definition="The process through which React updates the DOM by comparing trees."
 >
-reconciliation
-</Tooltip>
+  Reconciliation
+</Tooltip>{" "}
 is crucial for preventing wasted render cycles.
 
 ---
@@ -26,18 +26,19 @@ Premature optimization is the root of all evil, but wasted renders in a list of
 
 ## Implementing useMemo
 
-Let’s look at a practical example where heavy computation blocks the main thread.
+Let's look at a practical example where heavy computation blocks the main thread.
 We can wrap the calculation in a `useMemo` hook to cache the result.
 
 <CodeBlock
   code={`import React, { useMemo } from "react";
 
 const HeavyComponent = ({ data, filter }) => {
+  // Cache the result based on inputs
   const processedData = useMemo(() => {
     return data
       .filter(item => item.value > filter)
       .map(item => item.x * 2);
-  }, [data, filter]);
+  }, [data, filter]); 
 
   return (
     <div>
@@ -47,24 +48,25 @@ const HeavyComponent = ({ data, filter }) => {
     </div>
   );
 };`}
+  language="typescript"
   logic={[
     {
       title: "Input",
-      description: "The component receives data and filter props."
+      description: "The component receives data and filter props from the parent."
     },
     {
       title: "Check",
-      description: "React compares inputs to previous render."
+      description: "React compares current inputs with previous render's inputs."
     },
     {
       title: "Result",
-      description: "Cached value returned or recalculated."
+      description: "Return cached value if inputs match, otherwise recalculate."
     }
   ]}
 />
 
 <KeyTakeaway>
 Optimization isn't about making everything fast; it's about avoiding unnecessary
-work. By understanding React's internals, you write code that naturally performs
+work. By understanding how React's internal mechanisms operate, you can write code that naturally performs
 better.
 </KeyTakeaway>
