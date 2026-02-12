@@ -5,7 +5,13 @@ type BlogCardProps = {
 	excerpt: string;
 };
 
-const BlogCard = ({ image, category, title, excerpt }) => {
+export default function BlogCard({
+	image,
+	category,
+	title,
+	excerpt,
+}: BlogCardProps) {
+	// const BlogCard = ({ image, category, title, excerpt }) => {
 	return (
 		<article className="group flex flex-col h-full bg-transparent">
 			<div className="aspect-[3/2] w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-[#2A2622] relative mb-6">
@@ -31,5 +37,5 @@ const BlogCard = ({ image, category, title, excerpt }) => {
 			</div>
 		</article>
 	);
-};
-export default BlogCard;
+}
+// export default BlogCard;
