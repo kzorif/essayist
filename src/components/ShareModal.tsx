@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 const ShareModal = ({ open, onClose, post }) => {
 	const url = window.location.href;
 
