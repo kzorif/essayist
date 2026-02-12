@@ -30,7 +30,7 @@ const Navbar = ({ currentPage = "home" }) => {
 				<div className="flex items-center gap-6 md:gap-8">
 					<nav className="hidden md:flex items-center gap-8">
 						<a
-							href="#"
+							href="../"
 							className={`text-sm font-medium transition-colors ${currentPage === "home" ? "text-[#2D2A26] dark:text-white" : "text-[#6B665E] dark:text-[#9C968E]"} hover:text-[#D95D39]`}
 						>
 							Home

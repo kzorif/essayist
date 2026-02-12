@@ -97,20 +97,22 @@ export const CodeBlock = ({
 				<div className="flex bg-black/20 rounded-lg p-1 gap-1 backdrop-blur-sm">
 					<button
 						onClick={() => setView("code")}
-						className={`px-4 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none transition-all ${view === "code"
+						className={`px-4 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none transition-all ${
+							view === "code"
 								? "bg-[#D2603C] text-white"
 								: "text-white/40 hover:text-white"
-							}`}
+						}`}
 					>
 						Code
 					</button>
 					{logic.length > 0 && (
 						<button
 							onClick={() => setView("logic")}
-							className={`px-4 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none transition-all ${view === "logic"
+							className={`px-4 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none transition-all ${
+								view === "logic"
 									? "bg-[#D2603C] text-white"
 									: "text-white/40 hover:text-white"
-								}`}
+							}`}
 						>
 							Logic
 						</button>
@@ -142,8 +144,9 @@ export const CodeBlock = ({
 						{logic.map((step, index) => (
 							<div
 								key={index}
-								className={`bg-[#1F1D1B] p-6 rounded-xl border border-white/5 relative group hover:border-[#D2603C]/30 transition-colors ${index === 1 ? "md:mt-8" : index === 2 ? "md:mt-16" : ""
-									}`}
+								className={`bg-[#1F1D1B] p-6 rounded-xl border border-white/5 relative group hover:border-[#D2603C]/30 transition-colors ${
+									index === 1 ? "md:mt-8" : index === 2 ? "md:mt-16" : ""
+								}`}
 							>
 								<div className="absolute -top-3 left-6 bg-[#141311] px-2 text-[#D2603C] font-mono text-xs">
 									{String(index + 1).padStart(2, "0")}
@@ -173,16 +176,21 @@ export const Quote = ({
 	children: React.ReactNode;
 	author?: string;
 }) => (
-	<blockquote className="relative my-16 p-0 border-none">
-		<p className="text-3xl md:text-4xl font-serif italic text-[#221F1D] dark:text-[#EEECE5] leading-snug relative z-10 m-0 text-center">
-			"{children}"
+	<blockquote className="relative my-20 p-0 border-none not-prose">
+		<p
+			className="relative z-10 m-0 mx-auto max-w-4xl px-4 md:px-8 text-center font-serif italic text-xl md:text-2xl lg:text-3xl leading-[1.35] text-[#221F1D] dark:text-[#EEECE5]
+			before:content-['“'] after:content-['”']"
+		>
+			{children}
 		</p>
+
 		{author && (
-			<cite className="block mt-6 text-center text-sm text-[#221F1D]/60 dark:text-[#EEECE5]/60 not-italic">
+			<cite className="mt-6 block text-center text-sm not-italic text-[#221F1D]/60 dark:text-[#EEECE5]/60">
 				— {author}
 			</cite>
 		)}
-		<div className="h-1 w-20 bg-[#D2603C] mx-auto mt-8 rounded-full opacity-50"></div>
+
+		<div className="mx-auto mt-8 h-1 w-20 rounded-full bg-[#D2603C] opacity-50" />
 	</blockquote>
 );
 
@@ -190,13 +198,83 @@ export const Quote = ({
 /* Key Takeaway */
 /* ----------------------------- */
 export const KeyTakeaway = ({ children }: { children: React.ReactNode }) => (
-	<div className="mt-20 bg-gradient-to-br from-[#EEECE5]/40 to-[#F9F8F4] dark:from-white/5 dark:to-transparent p-10 rounded-3xl border border-white dark:border-white/5 shadow-sm max-w-3xl mx-auto">
+	<div className="mt-24 bg-gradient-to-br from-[#EEECE5]/50 to-[#F9F8F4] dark:from-white/5 dark:to-transparent p-12 rounded-3xl border border-[#E6E3DB] dark:border-white/5 shadow-sm max-w-3xl mx-auto">
 		<h3 className="font-serif text-3xl font-normal text-[#221F1D] dark:text-[#EEECE5] mb-6 flex items-center gap-3">
-			<Lightbulb className="text-[#D2603C]" size={28} />
+			<Lightbulb className="text-[#D2603C]" size={32} strokeWidth={1.5} />
 			Key Takeaway
 		</h3>
-		<p className="mb-0 text-[#221F1D]/70 dark:text-[#EEECE5]/70 text-lg font-normal leading-relaxed">
+		<p className="mb-0 text-[#221F1D]/75 dark:text-[#EEECE5]/75 text-lg font-normal leading-[1.9]">
 			{children}
 		</p>
 	</div>
+);
+
+/* ----------------------------- */
+/* Section with Label */
+/* ----------------------------- */
+export const Section = ({
+	label,
+	number,
+	title,
+	children,
+}: {
+	label: string;
+	number: string;
+	title: string;
+	children: React.ReactNode;
+}) => (
+	<div className="mt-24 mb-16 relative">
+		{/* Only show line on large screens and stop before children */}
+		<div className="hidden md:block absolute -left-12 top-0 h-40 w-px bg-gradient-to-b from-transparent via-[#D2603C]/30 to-transparent"></div>
+		<span className="text-[#D2603C] font-bold text-xs tracking-[0.2em] uppercase mb-4 block pl-0 md:pl-4">
+			{number} — {label}
+		</span>
+		<h2 className="text-4xl md:text-5xl text-[#221F1D] dark:text-[#EEECE5] mt-0 mb-10 pl-0 md:pl-4 font-serif font-normal leading-[1.15]">
+			{title}
+		</h2>
+		<div className="pl-0 md:pl-4 text-lg text-[#221F1D]/80 dark:text-[#EEECE5]/80 leading-[1.9]">
+			{children}
+		</div>
+	</div>
+);
+
+/* ----------------------------- */
+/* Paragraph with Drop Cap */
+/* ----------------------------- */
+export const DropCapParagraph = ({
+	children,
+}: {
+	children: React.ReactNode;
+}) => {
+	return (
+		<p className="text-[#221F1D]/80 dark:text-[#EEECE5]/80 leading-[1.9] mb-6 text-lg first-letter:text-[5.5rem] first-letter:font-serif first-letter:font-normal first-letter:text-[#D2603C] first-letter:float-left first-letter:mr-3 first-letter:leading-[0.85] first-letter:mt-[-0.15em]">
+			{children}
+		</p>
+	);
+};
+
+/* ----------------------------- */
+/* Regular Paragraph */
+/* ----------------------------- */
+export const P = ({ children }: { children: React.ReactNode }) => (
+	<p className="text-[#221F1D]/80 dark:text-[#EEECE5]/80 leading-[1.9] mb-6 text-lg">
+		{children}
+	</p>
+);
+
+/* ----------------------------- */
+/* Inline Code */
+/* ----------------------------- */
+export const InlineCode = ({
+	children,
+	...props
+}: {
+	children: React.ReactNode;
+}) => (
+	<code
+		{...props}
+		className="bg-[#EEECE5] dark:bg-white/10 px-1.5 py-0.5 rounded text-[#A63D1E] dark:text-[#D2603C] font-medium text-sm font-mono"
+	>
+		{children}
+	</code>
 );
