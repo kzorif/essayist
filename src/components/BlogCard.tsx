@@ -1,3 +1,10 @@
+type BlogCardProps = {
+	image: string;
+	category: string;
+	title: string;
+	excerpt: string;
+};
+
 const BlogCard = ({ image, category, title, excerpt }) => {
 	return (
 		<article className="group flex flex-col h-full bg-transparent">
